@@ -1,7 +1,25 @@
+org 0
 bits 16
-org 0x7c00
+
+_start:
+  jmp short start
+  nop
+ 
+times 33 db 0
 
 start:
+  jmp 0x7c0:main
+
+main:
+  cli             ; prevents interrupts
+  mov ax, 0x7c0
+  mov ds, ax
+  mov es, ax
+  mov ss, ax
+  mov ax, 0x00
+  mov sp, 0x7c00
+  sti             ; enables interrupts
+
   mov si, message
 
 print_char:
